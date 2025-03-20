@@ -67,6 +67,15 @@ def remove_book():
     else:
         return jsonify({'info': 'no such file'}), 204
 
+@app.route('/metadata/<filename>', methods=['GET'])
+def get_metadata(filename):
+    path = os.path.join('books', filename)
+    book = db.session.scalar(sa.select(Book).where(Book.epub_file == path))
+    if book:
+        return jsonify(book.to_dict()), 200
+    else:
+        return jsonify({'error': 'no such file'})
+
 @app.route('/book_list', methods=['GET'])
 def book_list():
     books = db.session.scalars(sa.select(Book)).all()
