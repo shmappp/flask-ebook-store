@@ -6,3 +6,4 @@ flask-login
 psycopg2-binary
 ebooklib
 beautifulsoup4
+flask-cors
