@@ -2,7 +2,7 @@ from flask import render_template, request, jsonify
 from app import app, db
 from app.models import Book 
 import sqlalchemy as sa 
-from app.utils import extract_metadata
+from app.utils import extract_metadata, delete_file
 
 @app.route('/')
 def index():
@@ -16,10 +16,25 @@ def upload():
     if file.filename == '':
         return jsonify({'error': 'no file selected'}), 400
     if file and file.filename.endswith('.epub'):
-        file.save(f"books/{file.filename}")
-        epub_file = f"books/{file.filename}"
+        # TODO: fix file overwrite logic, files that have identifier conflicts are not necessarily the same file (? to verify)
+        # may not be a bad thing to just override?
+        epub_file_path = f"books/{file.filename}"
+        file.save(epub_file_path)
         # get metadata
-        metadata = extract_metadata(epub_file)
+        metadata = extract_metadata(epub_file_path)
+        existing_book = db.session.scalar(sa.select(Book).where(Book.identifier == metadata['identifier']))
+        if existing_book:
+            # no need to remove, existing file stays (see above TODO)
+            return jsonify({'error': 'non-unique identifier'}), 400
+        book = Book(
+            title=metadata['title'],
+            author=metadata['author'],
+            identifier=metadata['identifier'],
+            epub_file=metadata['epub_file'],
+            word_count=metadata['word_count']
+        )
+        db.session.add(book)
+        db.session.commit()
         return metadata, 201
     else:
         return jsonify({'error': 'incorrect file type, requires .epub'}), 400
@@ -43,11 +58,14 @@ def remove_book():
     data = request.get_json()
     book =  db.session.scalar(sa.select(Book).where(Book.identifier == data.get('identifier')))
     if book:
+        to_delete_path = book.epub_file
         db.session.delete(book)
         db.session.commit()
+        if to_delete_path:
+            delete_file(to_delete_path)
         return jsonify(book.to_dict()), 200
     else:
-        return jsonify({}), 204
+        return jsonify({'info': 'no such file'}), 204
 
 @app.route('/book_list', methods=['GET'])
 def book_list():

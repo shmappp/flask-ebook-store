@@ -1,8 +1,8 @@
-"""initial migration
+"""inital migration
 
-Revision ID: db5f3d5292d9
+Revision ID: d3110b1d0fb1
 Revises: 
-Create Date: 2025-03-20 02:42:17.770337
+Create Date: 2025-03-20 12:43:03.072365
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'db5f3d5292d9'
+revision = 'd3110b1d0fb1'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,10 +21,14 @@ def upgrade():
     op.create_table('book',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(length=255), nullable=False),
-    sa.Column('author', sa.String(length=255), nullable=False),
+    sa.Column('author', sa.String(length=255), nullable=True),
+    sa.Column('identifier', sa.String(length=255), nullable=False),
     sa.Column('epub_file', sa.String(length=255), nullable=True),
     sa.Column('uploaded_at', sa.DateTime(), nullable=True),
-    sa.PrimaryKeyConstraint('id')
+    sa.Column('word_count', sa.Integer(), nullable=True),
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('identifier'),
+    sa.UniqueConstraint('identifier', name='uq_identifier')
     )
     with op.batch_alter_table('book', schema=None) as batch_op:
         batch_op.create_index(batch_op.f('ix_book_uploaded_at'), ['uploaded_at'], unique=False)
