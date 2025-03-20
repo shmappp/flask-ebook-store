@@ -1,3 +1,4 @@
+import ebooklib
 from ebooklib import epub
 from bs4 import BeautifulSoup
 import re
@@ -8,7 +9,7 @@ def get_epub_word_count(epub_file):
     word_count = 0
 
     for item in book.items:
-        if item.get_type() == epub.ITEM_DOCUMENT:
+        if item.get_type() == ebooklib.ITEM_DOCUMENT:
             soup = BeautifulSoup(item.get_content(), "html.parser")
             text = soup.get_text()
             words = re.findall(r'\b\w+\b', text)
