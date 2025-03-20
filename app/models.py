@@ -1,5 +1,6 @@
 from typing import Optional
 from datetime import datetime, timezone
+from sqlalchemy import UniqueConstraint
 import sqlalchemy as sa
 import sqlalchemy.orm as so
 from app import db
@@ -12,6 +13,10 @@ class Book(db.Model):
     isbn: so.Mapped[str] = so.mapped_column(sa.String(255), unique=True)
     epub_file: so.Mapped[str] = so.mapped_column(sa.String(255), nullable=True) # for debug purposes, keep nullable until upload required
     uploaded_at: so.Mapped[Optional[datetime]] = so.mapped_column(index=True, default=lambda: datetime.now(timezone.utc))
+
+    __table_args__ = (
+        UniqueConstraint('isbn', name='uq_isbn'), 
+    )
 
     def to_dict(self):
         return {
