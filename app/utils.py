@@ -2,6 +2,7 @@ import ebooklib
 from ebooklib import epub
 from bs4 import BeautifulSoup
 import re
+import os
 
 def get_epub_word_count(epub_file):
     book = epub.read_epub(epub_file)
@@ -26,6 +27,9 @@ def extract_metadata(epub_file):
     metadata['identifier'] = book.get_metadata('DC', 'identifier')[0][0]
     if len(book.get_metadata('DC', 'creator')):
         metadata['author'] = book.get_metadata('DC', 'creator')[0][0]
-    metadata['word-count'] = get_epub_word_count(epub_file)
+    metadata['epub_file'] = epub_file
+    metadata['word_count'] = get_epub_word_count(epub_file)
     return metadata
 
+def delete_file(f):
+    os.remove(f)
