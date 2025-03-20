@@ -9,10 +9,11 @@ from app import db
 class Book(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
     title: so.Mapped[str] = so.mapped_column(sa.String(255))
-    author: so.Mapped[str] = so.mapped_column(sa.String(255))
+    author: so.Mapped[Optional[str]] = so.mapped_column(sa.String(255))
     identifier: so.Mapped[str] = so.mapped_column(sa.String(255), unique=True)
     epub_file: so.Mapped[str] = so.mapped_column(sa.String(255), nullable=True) # for debug purposes, keep nullable until upload required
     uploaded_at: so.Mapped[Optional[datetime]] = so.mapped_column(index=True, default=lambda: datetime.now(timezone.utc))
+    word_count: so.Mapped[Optional[int]] = so.mapped_column()
 
     __table_args__ = (
         UniqueConstraint('identifier', name='uq_identifier'), 
