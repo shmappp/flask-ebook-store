@@ -7,8 +7,7 @@ export const DarkModeToggle = () => {
     );
 
     const setBackground = () => {
-        document.body.style.backgroundColor = darkToggle ? '#121212' : '#f4f4f4';
-        document.body.style.color = darkToggle ? '#ffffff' : '#000000';
+        document.documentElement.setAttribute('data-theme', darkToggle ? 'dark' : 'light');
         
     }
     
