@@ -31,7 +31,9 @@ const BookTable = () => {
                         <td>{book.title}</td>
                         <td>{book.author}</td>
                         <td>{checkUrl(book.identifier) ? (
-                            <a href={book.identifier}>{book.identifier}</a>
+                            <a href={book.identifier} 
+                                target='_blank' 
+                                rel='noopener noreferrer'>{book.identifier}</a>
                         )
                             :
                         (book.identifier)}</td>
