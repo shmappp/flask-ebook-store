@@ -54,3 +54,25 @@ body {
   color: var(--text-color);
   transition: background-color var(--transition-time), color var(--transition-time);
 }
+
+.container {
+  display: flex;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.left {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.right {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
