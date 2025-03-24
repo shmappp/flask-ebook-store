@@ -10,14 +10,12 @@ function App() {
 
   return (
       <div className="App">
+        <div style={{ position: 'absolute', right: '20px' }}>
+          <DarkModeToggle/>
+        </div>
       <h1>.epub store</h1>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-          <div style={{ margin: '0 auto', marginTop: '20px' }}>
-            <BookTable/>
-          </div>
-          <div style={{ position: 'absolute', right: '20px' }}>
-            <DarkModeToggle/>
-          </div>
+      <div className='center'>
+          <BookTable/>
         </div>
       </div>
   );
