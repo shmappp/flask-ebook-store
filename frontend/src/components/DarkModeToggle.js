@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Toggle from './Toggle';
 
-export const DarkModeToggle = () => {
+const DarkModeToggle = () => {
     const [darkToggle, setDarkToggle] = useState(
         document.documentElement.getAttribute('data-theme') === 'dark'
     );
