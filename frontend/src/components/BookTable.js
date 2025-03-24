@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { checkUrl } from '../utils'
 
 const BookTable = () => {
     const [bookData, setBookData] = useState([])
@@ -29,7 +30,10 @@ const BookTable = () => {
                         <td>{book.id}</td>
                         <td>{book.title}</td>
                         <td>{book.author}</td>
-                        <td><a href={book.identifier}>{book.identifier}</a></td>
+                        <td>checkUrl({book.identifier}) ?
+                            <a href={book.identifier}>{book.identifier}
+                                :
+                            {book.identifier}</a></td>
                         <td>{book.epub_file}</td>
                         <td>{book.uploaded_at}</td>
                     </tr>
