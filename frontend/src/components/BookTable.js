@@ -30,10 +30,11 @@ const BookTable = () => {
                         <td>{book.id}</td>
                         <td>{book.title}</td>
                         <td>{book.author}</td>
-                        <td>checkUrl({book.identifier}) ?
-                            <a href={book.identifier}>{book.identifier}
-                                :
-                            {book.identifier}</a></td>
+                        <td>{checkUrl(book.identifier) ? (
+                            <a href={book.identifier}>{book.identifier}</a>
+                        )
+                            :
+                        (book.identifier)}</td>
                         <td>{book.epub_file}</td>
                         <td>{book.uploaded_at}</td>
                     </tr>
