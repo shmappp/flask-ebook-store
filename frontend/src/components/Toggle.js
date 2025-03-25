@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ToggleButton from 'react-bootstrap/ToggleButton'
 
 const Toggle = ( { initialState, onToggle, labelOn, labelOff }) => {
     const [toggled, setToggled] = useState(initialState);
@@ -14,9 +15,12 @@ const Toggle = ( { initialState, onToggle, labelOn, labelOff }) => {
     };
 
     return (
-        <button onClick={handleToggle}>
+        <ToggleButton 
+            onClick={(e) => handleToggle()}
+            variant={toggled ? 'dark' : 'light'}
+        >
             {toggled ? labelOn: labelOff}
-        </button>    
+        </ToggleButton>    
     );
 };
 

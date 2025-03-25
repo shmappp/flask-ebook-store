@@ -3,21 +3,24 @@ import Toggle from './Toggle';
 
 const DarkModeToggle = () => {
     const [darkToggle, setDarkToggle] = useState(
-        document.documentElement.getAttribute('data-theme') === 'dark'
+        document.documentElement.getAttribute('data-bs-theme') === 'dark'
     );
 
     const setBackground = () => {
-        document.documentElement.setAttribute('data-theme', darkToggle ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-bs-theme', darkToggle ? 'dark' : 'light');
         
     }
     
     useEffect(() => {
         const savedTheme = localStorage.getItem('theme')
-        if (savedTheme == 'dark') {
+        if (savedTheme === 'dark') {
             setDarkToggle(true);
             }
-        else if (savedTheme == 'light') {
+        else if (savedTheme === 'light') {
             setDarkToggle(false);
+        }
+        else {
+            setDarkToggle(true);
         };
     }, []);
 

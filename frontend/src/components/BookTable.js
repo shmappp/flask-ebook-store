@@ -1,18 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { checkUrl } from '../utils'
+import Table from 'react-bootstrap/Table'
 
-const BookTable = () => {
-    const [bookData, setBookData] = useState([])
-
-    useEffect(() => {
-        fetch(`${process.env.REACT_APP_BACKEND_URL}/book_list`)
-            .then((response) => response.json())
-            .then((data) => setBookData(data))
-            .catch((error) => console.error("Error fetching data", error))
-    }, [])
+const BookTable = ({ bookData }) => {
 
     return (
-        <table className='bookTable' border='1'>
+        <Table striped bordered hover>
             <thead>
                 <tr>
                     <th>id</th>
@@ -47,7 +40,7 @@ const BookTable = () => {
                     </tr>
                 )}
             </tbody>
-        </table>
+        </Table>
     );
 }
 

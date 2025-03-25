@@ -37,18 +37,6 @@
   }
 }
 
-:root {
-
-  --background-color: #121212;
-  --text-color: #ffffff;
-  --transition-time: 0.2s;
-}
-
-[data-theme="light"] {
-  --background-color: #ffffff;
-  --text-color: #000000;
-}
-
 body {
   background-color: var(--background-color);
   color: var(--text-color);
@@ -75,4 +63,17 @@ body {
   display: flex;
   justify-content: right;
   align-items: center;
+}
+
+.upload-section {
+  display: block;
+  justify-content: center;
+  align-items: center;
+}
+[data-bs-theme='dark'] .choose-file-box {
+  border: 1px solid white
+}
+
+[data-bs-theme='light'] .choose-file-box {
+  border: 1px solid black
 }
