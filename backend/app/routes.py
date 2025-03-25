@@ -56,7 +56,7 @@ def add_book():
 def remove_book():
     # removes by identifier
     data = request.get_json()
-    book =  db.session.scalar(sa.select(Book).where(Book.identifier == data.get('identifier')))
+    book =  db.session.scalar(sa.select(Book).where(Book.id == data.get('id')))
     if book:
         to_delete_path = book.epub_file
         db.session.delete(book)
