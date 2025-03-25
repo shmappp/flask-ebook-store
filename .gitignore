@@ -12,3 +12,4 @@ backend/.env
 backend/.pytest_cache/
 backend/migrations/
 backend/app/__pycache__/
+backend/books/
