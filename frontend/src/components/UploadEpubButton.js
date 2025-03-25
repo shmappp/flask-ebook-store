@@ -28,6 +28,8 @@ const UploadButton = ({ callback }) => {
             console.log(data);
 
             callback();
+
+            setFile(null); // reset file upload state
         } catch (error) {
             console.error('Error uploading file', error);
         }
