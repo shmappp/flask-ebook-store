@@ -33,14 +33,14 @@ function App() {
         <Row>
       <div className='upload-section'>
         <h4>Upload file</h4>
-        <UploadButton callback={fetchBooks}/>
+        <UploadButton fetchBooks={fetchBooks}/>
       </div>
         </Row>
       </Container>
       <br/>
-      <Container>
+      <Container className='justify-content-md-center align-items-center'>
           <div className='center'>
-              <BookTable bookData={bookData}/>
+              <BookTable bookData={bookData} fetchBooks={fetchBooks} />
           </div>
       </Container>
       </div>

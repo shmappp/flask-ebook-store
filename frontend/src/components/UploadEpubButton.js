@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Button from 'react-bootstrap/esm/Button';
 
-const UploadButton = ({ callback }) => {
+const UploadButton = ({ fetchBooks }) => {
     const [file, setFile] = useState(null);
 
     const handleFileChange = ({ target }) => {
@@ -27,7 +27,7 @@ const UploadButton = ({ callback }) => {
             const data = await result.json();
             console.log(data);
 
-            callback();
+            fetchBooks();
 
             setFile(null); // reset file upload state
         } catch (error) {

@@ -1,8 +1,34 @@
 import React, { useState, useEffect } from 'react'
 import { checkUrl } from '../utils'
 import Table from 'react-bootstrap/Table'
+import Button from 'react-bootstrap/esm/Button'
 
-const BookTable = ({ bookData }) => {
+const BookTable = ({ bookData, fetchBooks }) => {
+
+    const handleDeleteClick = async (book) => {
+        const confirm = window.confirm(`confirm delete book ${book.id}?`)
+        if (confirm) {
+            try {
+                const result = await fetch(`${process.env.REACT_APP_BACKEND_URL}/remove_book`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({id: book.id})
+                });
+
+                const data = await result.json();
+                console.log(data);
+
+                fetchBooks();
+            } catch (error) {
+                console.error('Error deleting file', error);
+            }
+        } else {
+            console.log(`deletion of book ${book.id} cancelled`);
+        }
+
+    }
 
     return (
         <Table striped bordered hover>
@@ -14,6 +40,7 @@ const BookTable = ({ bookData }) => {
                     <th>identifier</th>
                     <th>epub_file</th>
                     <th>uploaded_at</th>
+                    <th>delete?</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,11 +59,12 @@ const BookTable = ({ bookData }) => {
                         (book.identifier)}</td>
                         <td>{book.epub_file}</td>
                         <td>{book.uploaded_at}</td>
+                        <td><Button onClick={() => handleDeleteClick(book)} /></td>
                     </tr>
                 ))
                 ) : (
                     <tr>
-                        <td colSpan='4'>No values found</td>
+                        <td colSpan='7'>No values found</td>
                     </tr>
                 )}
             </tbody>
