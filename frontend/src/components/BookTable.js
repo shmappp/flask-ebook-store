@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { checkUrl } from '../utils'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/esm/Button'
+import { Link } from 'react-router'
 
 const BookTable = ({ bookData, fetchBooks }) => {
 
@@ -40,6 +41,7 @@ const BookTable = ({ bookData, fetchBooks }) => {
                     <th>identifier</th>
                     <th>epub_file</th>
                     <th>uploaded_at</th>
+                    <th>read</th>
                     <th>delete?</th>
                 </tr>
             </thead>
@@ -59,6 +61,7 @@ const BookTable = ({ bookData, fetchBooks }) => {
                         (book.identifier)}</td>
                         <td>{book.epub_file}</td>
                         <td>{book.uploaded_at}</td>
+                        <td><Link to={`/read/${book.id}`}><Button /></Link></td>
                         <td><Button onClick={() => handleDeleteClick(book)} /></td>
                     </tr>
                 ))
