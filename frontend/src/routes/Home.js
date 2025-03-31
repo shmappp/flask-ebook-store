@@ -6,7 +6,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import UploadButton from '../components/UploadEpubButton.js';
 
-function Home() {
+export const Home = () => {
   const [bookData, setBookData] = useState([])
 
   const fetchBooks = () => {

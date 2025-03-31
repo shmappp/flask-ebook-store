@@ -1,8 +1,9 @@
-from flask import render_template, request, jsonify
+from flask import render_template, request, jsonify, send_from_directory
 from app import app, db
 from app.models import Book 
 import sqlalchemy as sa 
 from app.utils import extract_metadata, delete_file
+import os
 
 @app.route('/')
 def index():
@@ -74,9 +75,27 @@ def get_metadata(filename):
     if book:
         return jsonify(book.to_dict()), 200
     else:
-        return jsonify({'error': 'no such file'})
+        return jsonify({'error': 'no such file'}), 204
 
 @app.route('/book_list', methods=['GET'])
 def book_list():
     books = db.session.scalars(sa.select(Book)).all()
     return jsonify([book.to_dict() for book in books]), 200
+
+@app.route('/book/<id>/<path:file_path>', methods=['GET']) # TODO: get rid of this hacky bullshit, why are we just appending file.epub and not using secondary arguments
+def get_book(id, file_path=''):
+    book = db.session.scalar(sa.select(Book).where(id == Book.id)) 
+    if not book:
+        return jsonify({'error': 'no such book/file'}), 404
+    book_dir = os.path.join(os.getcwd(), 'books')
+    return send_from_directory(os.getcwd(), book.epub_file)#file_path if file_path else os.path.basename(book.epub_file))
+
+        
+
+@app.route('/books/<filename>', methods=['GET'])
+def serve_book(filename):
+    path = os.path.join(os.getcwd(), 'books')
+    if os.path.exists(os.path.join(path, filename)):
+        return send_from_directory(path, filename)
+    else:
+        return jsonify({'error': 'no such file'}), 404

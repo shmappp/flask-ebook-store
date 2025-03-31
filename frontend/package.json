@@ -15,6 +15,7 @@
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
     "react-dom": "^19.0.0",
+    "react-reader": "^2.0.13",
     "react-router": "^7.4.1",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
