@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
-import DarkModeToggle from './components/DarkModeToggle.js';
-import BookTable from './components/BookTable.js';
+import '../App.css';
+import DarkModeToggle from '../components/DarkModeToggle.js';
+import BookTable from '../components/BookTable.js';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import UploadButton from './components/UploadEpubButton.js';
+import UploadButton from '../components/UploadEpubButton.js';
 
-function App() {
+function Home() {
   const [bookData, setBookData] = useState([])
 
   const fetchBooks = () => {
@@ -47,4 +47,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;
