@@ -26,7 +26,8 @@ class Book(db.Model):
             "author": self.author,
             "identifier": self.identifier,
             "epub_file": self.epub_file,
-            "uploaded_at": self.uploaded_at.strftime('%Y-%m-%d %H:%M:%S')
+            "uploaded_at": self.uploaded_at.strftime('%Y-%m-%d %H:%M:%S'),
+            "word_count": self.word_count
         }
 
     def __repr__(self):

@@ -41,6 +41,7 @@ const BookTable = ({ bookData, fetchBooks }) => {
                     <th>identifier</th>
                     <th>epub_file</th>
                     <th>uploaded_at</th>
+                    <th>word_count</th>
                     <th>read</th>
                     <th>delete?</th>
                 </tr>
@@ -61,6 +62,7 @@ const BookTable = ({ bookData, fetchBooks }) => {
                         (book.identifier)}</td>
                         <td>{book.epub_file}</td>
                         <td>{book.uploaded_at}</td>
+                        <td>{book.word_count}</td>
                         <td><Link to={`/read/${book.id}`}><Button /></Link></td>
                         <td><Button onClick={() => handleDeleteClick(book)} /></td>
                     </tr>
