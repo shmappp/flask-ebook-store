@@ -13,14 +13,11 @@ export const Reader = () => {
             <ReactReader
                 url={`${process.env.REACT_APP_BACKEND_URL}/book/${id}/file.epub`} // TODO: get rid of this hacky bullshit, why are we just appending file.epub and not using secondary arguments
                 location={location}
-                // locationChanged={(epubcfi) => setLocation(epubcfi)}
+                locationChanged={(epubcfi) => setLocation(epubcfi)}
                 getRendition={(rendition) => { 
                     rendition.on("locationChanged", (loc) => {
                         console.log('New location: ', loc)
-                        if (loc && loc.start) {
-                            console.log('New location: ', loc.start)
-                            setLocation(loc.start);
-                        }
+                        setLocation(loc.start);
                     })
                 }}
             />
