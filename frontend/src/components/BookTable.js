@@ -69,7 +69,7 @@ const BookTable = ({ bookData, fetchBooks }) => {
                 ))
                 ) : (
                     <tr>
-                        <td colSpan='7'>No values found</td>
+                        <td colSpan='9'>No values found</td>
                     </tr>
                 )}
             </tbody>
