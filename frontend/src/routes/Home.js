@@ -23,7 +23,7 @@ export const Home = () => {
 
   return (
       <div className="App">
-        <div style={{ position: 'absolute', right: '20px' }}>
+        <div style={{ position: 'absolute', top:'20px', right: '20px' }}>
           <DarkModeToggle/>
         </div>
       <br/>
