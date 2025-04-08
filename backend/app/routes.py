@@ -1,9 +1,11 @@
 from flask import render_template, request, jsonify, send_from_directory
 from app import app, db
-from app.models import Book 
+from app.models import Book, User
 import sqlalchemy as sa 
 from app.utils import extract_metadata, delete_file
 import os
+from flask_jwt_extended import create_access_token
+
 
 @app.route('/')
 def index():
@@ -40,7 +42,6 @@ def upload():
     else:
         return jsonify({'error': 'incorrect file type, requires .epub'}), 400
     
-
 @app.route('/add_book', methods=['POST'])
 def add_book():
     data = request.get_json()
@@ -88,9 +89,7 @@ def get_book(id, file_path=''):
     if not book:
         return jsonify({'error': 'no such book/file'}), 404
     book_dir = os.path.join(os.getcwd(), 'books')
-    return send_from_directory(os.getcwd(), book.epub_file)#file_path if file_path else os.path.basename(book.epub_file))
-
-        
+    return send_from_directory(os.getcwd(), book.epub_file) #file_path if file_path else os.path.basename(book.epub_file))
 
 @app.route('/books/<filename>', methods=['GET'])
 def serve_book(filename):
@@ -99,3 +98,35 @@ def serve_book(filename):
         return send_from_directory(path, filename)
     else:
         return jsonify({'error': 'no such file'}), 404
+    
+@app.route('/login', methods=['POST'])
+def login():
+    username = request.json.get('username')
+    password = request.json.get('password')
+
+    user = db.session.scalar(sa.select(User).where(User.username == username))
+
+    if not user:
+        return jsonify({'error': 'no such user'}), 401
+    
+    if not user.check_password(password):
+        return jsonify({'error': 'incorrect password'}), 401
+
+    access_token = create_access_token(identity=user.id)
+    return jsonify(access_token=access_token)
+
+@app.route('/register', methods=['POST'])
+def register():
+    username = request.json.get('username')
+    password = request.json.get('password')
+
+    user = db.session.scalar(sa.select(User).where(User.username == username))
+    
+    if user:
+        return jsonify({'error': 'username already exists'})
+    
+    new_user = User(username=username)
+    new_user.set_password(password)
+    db.session.add(new_user)
+    db.session.commit()
+    return jsonify({'msg': 'user successfully added'}), 201
