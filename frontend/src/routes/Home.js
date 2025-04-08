@@ -25,11 +25,9 @@ export const Home = () => {
 
   return (
       <div className="App">
-        <div style={{ position: 'absolute', top:'20px', left: '20px' }}>
+        <div className="p-4 w-100" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Link to='/login'><Button>Login</Button></Link>
-        </div>
-        <div style={{ position: 'absolute', top:'20px', right: '20px' }}>
-          <DarkModeToggle/>
+          <DarkModeToggle />
         </div>
       <br/>
       <h1>.epub store</h1>
