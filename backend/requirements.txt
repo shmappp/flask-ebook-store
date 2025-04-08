@@ -8,3 +8,4 @@ ebooklib
 beautifulsoup4
 flask-cors
 validators
+flask-jwt-extended
