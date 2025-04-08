@@ -32,6 +32,7 @@ export const Login = () => {
     const [usernameError, setUsernameError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [failedSubmit, setFailedSubmit] = useState(false);
+    const [formError, setFormError] = useState('');
     const navigate = useNavigate();
     const minUsernameLength = 3, maxUsernameLength = 20;
     const minPasswordLength = 3, maxPasswordLength = 30;
@@ -61,6 +62,7 @@ export const Login = () => {
         navigate('/');
     } else {
         console.error('Login failed', response.error || response);
+        setFormError(response.error || response);
     }
     }
 
@@ -102,6 +104,7 @@ export const Login = () => {
                         <input type='text' onChange={(e) => handlePasswordChange(e)} />
                         {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
                     </label>
+                    {formError && <p style={{ color: 'red' }}>{formError}</p>}
                     <p>If you aren't registered, register <Link to='/register'>here</Link></p>
                     <div>
                         <Button type='submit'>Submit</Button>
