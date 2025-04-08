@@ -5,6 +5,8 @@ import BookTable from '../components/BookTable.js';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import UploadButton from '../components/UploadEpubButton.js';
+import { Link } from 'react-router';
+import Button from 'react-bootstrap/esm/Button'
 
 export const Home = () => {
   const [bookData, setBookData] = useState([])
@@ -23,6 +25,9 @@ export const Home = () => {
 
   return (
       <div className="App">
+        <div style={{ position: 'absolute', top:'20px', left: '20px' }}>
+          <Link to='/login'><Button>Login</Button></Link>
+        </div>
         <div style={{ position: 'absolute', top:'20px', right: '20px' }}>
           <DarkModeToggle/>
         </div>
