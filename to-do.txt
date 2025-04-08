@@ -1,0 +1,10 @@
+add jwt auth headers to requests
+create auth context to maintain login state
+add user profiles, conditional rendering based on login state
+add ability to store book owners
+add user specific book progress to be displayed in booklist
+add user specific feed
+add restricted actions (ie. deletions only by correct users)
+add admin account
+add privacy options
+refactor theming logic to global themecontext
