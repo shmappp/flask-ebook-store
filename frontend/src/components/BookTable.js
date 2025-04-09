@@ -40,6 +40,7 @@ const BookTable = ({ bookData, fetchBooks }) => {
                     <th>author</th>
                     <th>identifier</th>
                     <th>epub_file</th>
+                    <th>owner</th>
                     <th>uploaded_at</th>
                     <th>word_count</th>
                     <th>read</th>
@@ -61,6 +62,7 @@ const BookTable = ({ bookData, fetchBooks }) => {
                             :
                         (book.identifier)}</td>
                         <td>{book.epub_file}</td>
+                        <td>{book.owner}</td>
                         <td>{book.uploaded_at}</td>
                         <td>{book.word_count}</td>
                         <td><Link to={`/read/${book.id}`}><Button /></Link></td>
@@ -69,7 +71,7 @@ const BookTable = ({ bookData, fetchBooks }) => {
                 ))
                 ) : (
                     <tr>
-                        <td colSpan='9'>No values found</td>
+                        <td colSpan='10'>No values found</td>
                     </tr>
                 )}
             </tbody>
