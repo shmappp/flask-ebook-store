@@ -56,6 +56,7 @@ export const Register = () => {
             username,
             password
         });
+
     if (response.msg) {
         console.log('register successful: ', response);
         navigate('/login');

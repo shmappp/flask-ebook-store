@@ -3,10 +3,8 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { createRoot } from "react-dom/client"
 import { createBrowserRouter, RouterProvider, Route, Link } from "react-router"
 import routes from './routes'
-import { ReactReader } from 'react-reader' 
 
 const router = createBrowserRouter(routes)
 
